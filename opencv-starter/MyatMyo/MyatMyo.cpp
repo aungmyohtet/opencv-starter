@@ -2,5 +2,5 @@
 #include "MyatMyo\MyatMyo.h"
 #include <iostream>
 void myatmyo::test() {
-	std::cout << "Test from myat myo\n";
+	std::cout << "Test from  myat myo\n";
 }
