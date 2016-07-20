@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AungMyoHtet\Test.h" />
+    <ClInclude Include="hninnayecho\hninnayecho.h" />
     <ClInclude Include="ImageProcedure.h" />
     <ClInclude Include="MyatMyo\MyatMyo.h" />
     <ClInclude Include="stdafx.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AungMyoHtet\Test.cpp" />
+    <ClCompile Include="hninnayecho\test.cpp" />
     <ClCompile Include="ImageProcedure.cpp" />
     <ClCompile Include="MyatMyo\MyatMyo.cpp" />
     <ClCompile Include="opencv-starter.cpp" />

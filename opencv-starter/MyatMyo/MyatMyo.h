@@ -12,10 +12,10 @@ namespace myatmyo {
 	public:
 		EdgeDetection();
 		~EdgeDetection();
-		static void sobelEdgeDetection();
-		static void laplaceEdgeDetection();
-		static void cannyEdgeDetection();
-		static void sobelLaplaceCanny();
+		static void sobelEdgeDetection(std::string);
+		static void laplaceEdgeDetection(std::string);
+		static void cannyEdgeDetection(std::string);
+		static void sobelLaplaceCanny(std::string);
 	private:
 		static void CannyThreshold(int, void*);
 	};

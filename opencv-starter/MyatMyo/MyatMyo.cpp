@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MyatMyo\MyatMyo.h"
 
-void myatmyo::EdgeDetection::sobelEdgeDetection() {
+void myatmyo::EdgeDetection::sobelEdgeDetection(std::string imagePath) {
 	Mat src, src_gray;
 	Mat grad_x, grad_y;
 	Mat abs_grad_x, abs_grad_y;
@@ -12,7 +12,7 @@ void myatmyo::EdgeDetection::sobelEdgeDetection() {
 	int delta = 0;
 	int ddepth = CV_16S;
 
-	src = imread("E:\\Myat Myo Lwin\\Software\\java\\opencv\\sources\\samples\\data\\lena.jpg");
+	src = imread(imagePath, CV_LOAD_IMAGE_UNCHANGED);
 	namedWindow("Original", CV_WINDOW_AUTOSIZE);
 	imshow("Original", src);
 
@@ -48,7 +48,7 @@ void myatmyo::EdgeDetection::sobelEdgeDetection() {
 	waitKey(0);
 }
 
-void myatmyo::EdgeDetection::laplaceEdgeDetection() {
+void myatmyo::EdgeDetection::laplaceEdgeDetection(std::string imagePath) {
 
 	Mat src, src_gray, dst;
 	Mat abs_dst;
@@ -59,7 +59,7 @@ void myatmyo::EdgeDetection::laplaceEdgeDetection() {
 	int ddepth = CV_16S;
 
 	/// Load an image
-	src = imread("E:\\Myat Myo Lwin\\Software\\java\\opencv\\sources\\samples\\data\\lena.jpg");
+	src = imread(imagePath, CV_LOAD_IMAGE_UNCHANGED);
 	namedWindow("Original", CV_WINDOW_AUTOSIZE);
 	imshow("Original", src);
 
@@ -88,9 +88,9 @@ int const max_lowThreshold = 100;
 int ratio = 3;
 int kernel_size = 3;
 
-void myatmyo::EdgeDetection::cannyEdgeDetection() {
+void myatmyo::EdgeDetection::cannyEdgeDetection(std::string imagePath) {
 
-	src = imread("E:\\Myat Myo Lwin\\Software\\java\\opencv\\sources\\samples\\data\\lena.jpg");
+	src = imread(imagePath, CV_LOAD_IMAGE_UNCHANGED);
 	namedWindow("Original", CV_WINDOW_AUTOSIZE);
 	imshow("Original", src);
 
@@ -119,4 +119,53 @@ void myatmyo::EdgeDetection::CannyThreshold(int, void*) {
 	Canny(src_gray, dst, lowThreshold, lowThreshold*ratio, kernel_size);
 
 	imshow("Canny", dst);
+}
+
+void myatmyo::EdgeDetection::sobelLaplaceCanny(std::string imagePath) {
+
+	Mat src, src_gray;
+	int kernel_size = 3;
+	int scale = 1;
+	int delta = 0;
+	int ddepth = CV_16S;
+
+	string src_name = "Source";
+	string sobel_name = "Sobel";
+	string canny_name = "Canny";
+	string laplace_name = "Laplace";
+
+	src = imread("E:\\Myat Myo Lwin\\Software\\java\\opencv\\sources\\samples\\data\\lena.jpg");
+
+
+	GaussianBlur(src, src, Size(3, 3), 0, 0, BORDER_DEFAULT);
+	cvtColor(src, src_gray, COLOR_RGB2GRAY);
+
+	namedWindow(src_name, WINDOW_AUTOSIZE);
+	namedWindow(sobel_name, WINDOW_AUTOSIZE);
+	namedWindow(canny_name, WINDOW_AUTOSIZE);
+	namedWindow(laplace_name, WINDOW_AUTOSIZE);
+
+	//This is for source image.
+	imshow(src_name, src);
+
+	//This is for sobel edge detection.
+	Mat sobel_dst;
+	Mat sobel_abs_dst;
+	Sobel(src_gray, sobel_dst, ddepth, 1, 1, kernel_size);
+	convertScaleAbs(sobel_dst, sobel_abs_dst);
+	imshow(sobel_name, sobel_abs_dst);
+
+	//This is for laplace edge detection.
+	Mat laplace_dst;
+	Mat laplace_abs_dst;
+	Laplacian(src_gray, laplace_dst, ddepth, kernel_size, scale, delta, BORDER_DEFAULT);
+	convertScaleAbs(laplace_dst, laplace_abs_dst);
+	imshow(laplace_name, laplace_abs_dst);
+
+	//This is for canny edge detection.
+	Mat canny_dst;
+	Canny(src_gray, canny_dst, 50, 200, kernel_size);
+	imshow(canny_name, canny_dst);
+
+	waitKey(0);
 }
