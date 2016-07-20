@@ -30,6 +30,12 @@
     <ClInclude Include="AungMyoHtet\Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MyatMoe\MyatMoe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyatMoe\SmoothingProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +48,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AungMyoHtet\Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyatMoe\MyatMoeSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyatMoe\SmoothingProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
