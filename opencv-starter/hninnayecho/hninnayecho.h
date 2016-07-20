@@ -7,8 +7,8 @@ namespace hninnayecho {
 		ImageProcessing();
 		~ImageProcessing();
 		static void changeBrightness(std::string image);
-		static void test();
-
+		static void drawimage();
+		static int readingVideo(std::string image);
 	};
 
 }
