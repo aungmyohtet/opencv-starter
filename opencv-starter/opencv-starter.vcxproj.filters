@@ -30,6 +30,9 @@
     <ClInclude Include="AungMyoHtet\Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sumyat\SuMyat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AungMyoHtet\Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sumyat\SuMyat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
