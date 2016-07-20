@@ -9,7 +9,15 @@ Mat src; Mat dst;
 void prepareImgToSmooth(string imagePath);
 int displayImages(string title);
 
-int::smoothingProc::HomogeneousSmoothing(string imagePath) {
+smoothingProc::SmoothingProcessor::SmoothingProcessor() {
+
+}
+
+smoothingProc::SmoothingProcessor::~SmoothingProcessor() {
+
+}
+
+int::smoothingProc::SmoothingProcessor::HomogeneousSmoothing(string imagePath) {
 
 	prepareImgToSmooth(imagePath);
 	blur(src, dst, Size(5, 5));
@@ -18,7 +26,7 @@ int::smoothingProc::HomogeneousSmoothing(string imagePath) {
 	return 0;
 }
 
-int::smoothingProc::GaussianSmoothing(string imagePath) {
+int::smoothingProc::SmoothingProcessor::GaussianSmoothing(string imagePath) {
 	prepareImgToSmooth(imagePath);
 	GaussianBlur(src, dst, Size(7, 7), 0, 0);
 	displayImages("Gaussian Smoothing");
@@ -26,7 +34,7 @@ int::smoothingProc::GaussianSmoothing(string imagePath) {
 	return 0;
 }
 
-int::smoothingProc::MedianSmoothing(string imagePath) {
+int::smoothingProc::SmoothingProcessor::MedianSmoothing(string imagePath) {
 	prepareImgToSmooth(imagePath);
 	medianBlur(src, dst, 5);
 	displayImages("Median Smoothing");
@@ -34,7 +42,7 @@ int::smoothingProc::MedianSmoothing(string imagePath) {
 	return 0;
 }
 
-int::smoothingProc::BilateralSmoothing(string imagePath) {
+int::smoothingProc::SmoothingProcessor::BilateralSmoothing(string imagePath) {
 	prepareImgToSmooth(imagePath);
 	bilateralFilter(src, dst, 11, 100, 100);
 	displayImages("Bilateral Smoothing");
