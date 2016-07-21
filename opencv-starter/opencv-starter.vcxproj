@@ -156,7 +156,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AungMyoHtet\Test.cpp" />
     <ClCompile Include="hninnayecho\test.cpp" />
     <ClCompile Include="ImageProcedure.cpp" />
     <ClCompile Include="MyatMyo\MyatMyo.cpp" />
