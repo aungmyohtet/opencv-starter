@@ -2,10 +2,7 @@
 #include "SmoothingProcessor.h"
 
 using namespace std;
-using namespace cv;
-
-Mat src;
-Mat dst;
+using namespace smoothingProc;
 
 void prepareImgToSmooth(string imagePath);
 int displayImages(string title);

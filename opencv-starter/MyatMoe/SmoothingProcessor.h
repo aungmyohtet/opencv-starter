@@ -4,6 +4,10 @@
 #include "opencv2/highgui.hpp"
 
 namespace smoothingProc {
+	using namespace cv;
+
+	Mat src;
+	Mat dst;
 	class SmoothingProcessor {
 		private :
 

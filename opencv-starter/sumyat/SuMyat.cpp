@@ -1,13 +1,12 @@
 #include "stdafx.h"
-#include "sumyat\SuMyat.h"
 #include <iostream>
-#include <opencv2\opencv.hpp>
+#include "sumyat\SuMyat.h"
+
 using namespace std;
 using namespace cv;
-double const thresh = 127;
-double const maxVal = 255;
-double const blockSize = 11;
-Mat img, src, dst1, dst2, dst3, dst4, dst5;
+
+using namespace sumyat;
+
 
 void sumyat::ImageProcedure::golbalThresholdTest(string imagePath){
 	img = imread(imagePath, CV_LOAD_IMAGE_UNCHANGED);
