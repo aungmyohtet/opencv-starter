@@ -4,19 +4,23 @@
 #include "opencv2/highgui.hpp"
 
 namespace smoothingProc {
-	using namespace cv;
 
-	Mat src;
-	Mat dst;
+	
 	class SmoothingProcessor {
 		private :
-
+			cv::Mat src;
+			cv::Mat dst;
 		public :
 			SmoothingProcessor();
 			~SmoothingProcessor();
+			void setSrc(std::string path);
+			cv::Mat getSrc();
+			void setDst(cv::Mat source);
+			cv::Mat getDst();
 			int HomogeneousSmoothing(std::string imagePath);
 			int GaussianSmoothing(std::string imagePath);
 			int MedianSmoothing(std::string imagePath);
 			int BilateralSmoothing(std::string imagePath);
+			void displayImages(std::string title);
 	};	
 }
