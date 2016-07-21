@@ -4,7 +4,8 @@
 using namespace std;
 using namespace cv;
 
-Mat src; Mat dst;
+Mat src;
+Mat dst;
 
 void prepareImgToSmooth(string imagePath);
 int displayImages(string title);
@@ -55,6 +56,7 @@ int::smoothingProc::SmoothingProcessor::BilateralSmoothing(string imagePath) {
 }
 
 void prepareImgToSmooth(string imagePath) {
+	using namespace smoothingProc;
 	src = imread(imagePath, CV_LOAD_IMAGE_UNCHANGED);
 	dst = src.clone();
 }
@@ -62,7 +64,7 @@ void prepareImgToSmooth(string imagePath) {
 int displayImages(string title) {
 	namedWindow("Original Image", WINDOW_AUTOSIZE);
 	namedWindow(title, WINDOW_AUTOSIZE);
-
+	using namespace smoothingProc;
 	imshow("Original Image", src);
 	imshow(title, dst);
 

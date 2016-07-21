@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MyatMyo\MyatMyo.h"
 
+using namespace myatmyo;
+
 void myatmyo::EdgeDetection::sobelEdgeDetection(std::string imagePath) {
 	Mat src, src_gray;
 	Mat grad_x, grad_y;
@@ -80,13 +82,6 @@ void myatmyo::EdgeDetection::laplaceEdgeDetection(std::string imagePath) {
 	waitKey(0);
 }
 
-Mat src, src_gray;
-Mat dst;
-
-int lowThreshold = 0;
-int const max_lowThreshold = 100;
-int ratio = 3;
-int kernel_size = 3;
 
 void myatmyo::EdgeDetection::cannyEdgeDetection(std::string imagePath) {
 
