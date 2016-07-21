@@ -2,6 +2,7 @@
 #include "hninnayecho/hninnayecho.h"
 #include <iostream>
 #include <opencv2/opencv.hpp>
+
 using namespace std;
 using namespace cv;
 
@@ -216,42 +217,23 @@ int hninnayecho::ImageProcessing::readingWritingVideo(){
 	return 0;
 }
 
-int hninnayecho::ImageProcessing::writeImagetoFile(){
-	Mat img(650, 600, CV_16UC3, Scalar(0, 50000, 50000)); //create an image ( 3 channels, 16 bit image depth, 650 high, 600 wide, (0, 50000, 50000) assigned for Blue, Green and Red plane respectively. )
+void hninnayecho::ImageProcessing::writeImagetoFile(){
 
-	if (img.empty()) //check whether the image is loaded or not
+	CvCapture* capture = 0;
+	capture = cvCaptureFromCAM(0);
+	cvNamedWindow("video");
+	while (true)
 	{
-		cout << "ERROR : Image cannot be loaded..!!" << endl;
-		//system("pause"); //wait for a key press
-		return -1;
+		IplImage* frame = 0;
+		frame = cvQueryFrame(capture);
+		if (!frame) break;
+		cvErode(frame, frame, 0, 2);
+		cvShowImage("video", frame);
+		cvSaveImage("E:\\videotesting\\matteo.jpg", frame);
+		int c = cvWaitKey(20);
+		if ((char)c == 27)
+		break;
 	}
-
-	vector<int> compression_params; //vector that stores the compression parameters of the image
-
-	compression_params.push_back(CV_IMWRITE_JPEG_QUALITY); //specify the compression technique
-
-	compression_params.push_back(98); //specify the compression quality
-
-
-
-	bool bSuccess = imwrite("E:\\videotesting\\TestImage.jpg", img, compression_params); //write the image to file
-
-
-
-	if (!bSuccess)
-
-	{
-
-		cout << "ERROR : Failed to save the image" << endl;
-
-		//system("pause"); //wait for a key press
-
-	}
-
-	namedWindow("MyWindow", CV_WINDOW_AUTOSIZE); //create a window with the name "MyWindow"
-	imshow("MyWindow", img); //display the image which is stored in the 'img' in the "MyWindow" window
-
-	waitKey(0);  //wait for a keypress
-
-	destroyWindow("MyWindow"); //destroy the window with the name, "MyWindow"
+	cvReleaseCapture(&capture);
+	
 }
