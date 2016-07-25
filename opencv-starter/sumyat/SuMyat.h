@@ -6,17 +6,17 @@ using namespace std;
 
 namespace sumyat{
 	using namespace cv;
-	double const thresh = 127;
-	double const maxVal = 255;
-	double const blockSize = 11;
-	Mat img, src, dst1, dst2, dst3, dst4, dst5;
+	static double thresh = 127.0;
+	static double maxVal = 255.0;
+	static int blockSize = 11;
+	static Mat img, src, dst1, dst2, dst3, dst4, dst5;
 	class ImageProcedure
 	{
 	public:
 		ImageProcedure();
 		~ImageProcedure();		
 		static void golbalThresholdTest(string imagePath);
-		static void adaptiveThresholdTest(string imagePath);
+		static void adaptiveThresholdTest(string imagePath);		
 
 	private:
 

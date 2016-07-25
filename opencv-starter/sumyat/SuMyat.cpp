@@ -7,16 +7,34 @@ using namespace cv;
 
 using namespace sumyat;
 
+sumyat::ImageProcedure::ImageProcedure(){}
+
+sumyat::ImageProcedure::~ImageProcedure(){}
 
 void sumyat::ImageProcedure::golbalThresholdTest(string imagePath){
 	img = imread(imagePath, CV_LOAD_IMAGE_UNCHANGED);
 	cvtColor(img, src, CV_BGR2GRAY);
 
-	threshold(src, dst1, thresh, maxVal, THRESH_BINARY);
+	// Testing 5 types of global threshold
+	/*threshold(src, dst1, thresh, maxVal, THRESH_BINARY);
 	threshold(src, dst2, thresh, maxVal, THRESH_BINARY_INV);
 	threshold(img, dst3, thresh, maxVal, THRESH_TOZERO);
 	threshold(img, dst4, thresh, maxVal, THRESH_TOZERO_INV);
-	threshold(img, dst5, thresh, maxVal, THRESH_TRUNC);
+	threshold(img, dst5, thresh, maxVal, THRESH_TRUNC);*/
+
+	//Testing THRESH_OTSU | 5 types of global threshold
+	/*threshold(src, dst1, thresh, maxVal, THRESH_OTSU | THRESH_BINARY);
+	threshold(src, dst2, thresh, maxVal, THRESH_OTSU | THRESH_BINARY_INV);
+	threshold(src, dst3, thresh, maxVal, THRESH_OTSU | THRESH_TOZERO);
+	threshold(src, dst4, thresh, maxVal, THRESH_OTSU | THRESH_TOZERO_INV);
+	threshold(src, dst5, thresh, maxVal, THRESH_OTSU | THRESH_TRUNC);*/
+	
+	//Testing THRESH_TRIANGLE | 5 types of global threshold
+	/*threshold(src, dst1, thresh, maxVal, THRESH_TRIANGLE | THRESH_BINARY);
+	threshold(src, dst2, thresh, maxVal, THRESH_TRIANGLE | THRESH_BINARY_INV);
+	threshold(src, dst3, thresh, maxVal, THRESH_TRIANGLE | THRESH_TOZERO);
+	threshold(src, dst4, thresh, maxVal, THRESH_TRIANGLE | THRESH_TOZERO_INV);
+	threshold(src, dst5, thresh, maxVal, THRESH_TRIANGLE | THRESH_TRUNC);*/
 
 	namedWindow("OriginalWindow", CV_WINDOW_AUTOSIZE);
 	namedWindow("GrayWindow", CV_WINDOW_AUTOSIZE);
