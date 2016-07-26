@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include <iostream>
 #include "sumyat\SuMyat.h"
-#include "opencv2\highgui.hpp"
 
 using namespace std;
 using namespace cv;
@@ -102,16 +101,16 @@ void on_trackbar(int, void*)
 	imshow("Linear Blend", dst1);
 }
 
-void sumyat::ImageProcedure::trackBarTest(string imagePath1,string imagePath2){
+void sumyat::ImageProcedure::trackBarTest(string imagePath1, string imagePath2){
 
 	img = imread(imagePath1, CV_LOAD_IMAGE_UNCHANGED);
 	src = imread(imagePath2, CV_LOAD_IMAGE_UNCHANGED);
 
-	if (!img.data || !src.data) { 
-		cout<<"Error loading image \n";
+	if (!img.data || !src.data) {
+		cout << "Error loading image \n";
 		return;
 	}
-	
+
 	/// Initialize values
 	alpha_slider = 0;
 
@@ -120,13 +119,13 @@ void sumyat::ImageProcedure::trackBarTest(string imagePath1,string imagePath2){
 
 	/// Create Trackbars
 	createTrackbar("Alpha", "Linear Blend", &alpha_slider, alpha_slider_max, on_trackbar);
-	
+
 	/// Show some stuff
 	on_trackbar(alpha_slider, 0);
 
 	/// Wait until user press some key
 	waitKey(0);
-	
+
 	destroyWindow("Linear Blend");
 
 }
