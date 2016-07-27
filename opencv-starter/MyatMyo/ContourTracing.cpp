@@ -118,7 +118,7 @@ void myatmyo::ContourTracing::findingContoursOnVariousThreshold(std::string imag
 	namedWindow("Original", CV_WINDOW_AUTOSIZE);
 	imshow("Original", image_contour);
 	namedWindow("Result", CV_WINDOW_AUTOSIZE);
-	cvCreateTrackbar("Threshold", "Result", &thresh_contour, 255, on_trackbar);
+	cvCreateTrackbar("Threshold", "Result", &current_thresh, max_thresh, on_trackbar);
 	on_trackbar(0);
 	waitKey(0);
 }
@@ -129,7 +129,7 @@ void myatmyo::ContourTracing::on_trackbar(int) {
 	Mat drawing = Mat::zeros(image_contour.size(), CV_8UC1);
 
 	cvtColor(image_contour, gray_contour, CV_BGR2GRAY);
-	threshold(gray_contour, gray_contour, thresh_contour, 255, THRESH_BINARY_INV);
+	threshold(gray_contour, gray_contour, current_thresh, max_thresh, THRESH_BINARY_INV);
 	
 	findContours(gray_contour, contours, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
 	
@@ -243,7 +243,7 @@ void myatmyo::ContourTracing::bounding(std::string imagePath) {
 		fitLine(Mat(contours[i]), lines, 2, 0, 0.01, 0.01);
 		int lefty = (-lines[2] * lines[1] / lines[0]) + lines[3];
 		int righty = ((gray.cols - lines[2])*lines[1] / lines[0]) + lines[3];
-		cv::line(src, Point(gray.cols - 1, righty), Point(0, lefty), Scalar(255, 0, 0), 2);
+		line(src, Point(gray.cols - 1, righty), Point(0, lefty), Scalar(255, 0, 0), 2);
 
 	}
 
@@ -251,4 +251,58 @@ void myatmyo::ContourTracing::bounding(std::string imagePath) {
 	imshow("Bounding-Enclosing-Fitline", src);
 	waitKey(0);
 
+}
+
+void myatmyo::ContourTracing::boundingWithConvexHull(std::string imagePath) {
+
+	/// Load source image and convert it to gray
+	src_convex = imread("E:\\opencvprojects\\opencv-starter\\images\\momiji.jpg", CV_LOAD_IMAGE_COLOR);
+	//src = imread("C:\\Users\\DELL\\Desktop\\car.jpg", CV_LOAD_IMAGE_COLOR);
+
+	///Convert image to gray and blur it
+	cvtColor(src_convex, src_gray_convex, CV_BGR2GRAY);
+	blur(src_gray_convex, src_gray_convex, Size(3, 3));
+
+	/// Create Window
+	namedWindow("Original", CV_WINDOW_AUTOSIZE);
+	imshow("Original", src_convex);
+
+	createTrackbar("Threshold:", "Original", &current_thresh, max_thresh, convexHullThreshold);
+	convexHullThreshold(0, 0);
+
+	waitKey(0);
+
+}
+
+void myatmyo::ContourTracing::convexHullThreshold(int, void*)
+{
+	Mat src_copy = src_convex.clone();
+	Mat threshold_output;
+	vector<vector<Point> > contours;
+	vector<Vec4i> hierarchy;
+
+	/// Detect edges using Threshold
+	threshold(src_gray_convex, threshold_output, current_thresh, max_thresh, THRESH_BINARY);
+
+	/// Find contours
+	findContours(threshold_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0));
+
+	/// Find the convex hull object for each contour
+	vector<vector<Point> >hull(contours.size());
+	for (int i = 0; i < contours.size(); i++)
+	{
+		convexHull(Mat(contours[i]), hull[i], false);
+	}
+
+	/// Draw contours + hull results
+	Mat drawing = Mat::zeros(threshold_output.size(), CV_8UC3);
+	for (int i = 0; i< contours.size(); i++) {
+		Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+		drawContours(drawing, contours, i, color, 1, 8, vector<Vec4i>(), 0, Point());
+		drawContours(drawing, hull, i, color, 1, 8, vector<Vec4i>(), 0, Point());
+	}
+
+	/// Show in a window
+	namedWindow("Convex Hull", CV_WINDOW_AUTOSIZE);
+	imshow("Convex Hull", drawing);
 }
