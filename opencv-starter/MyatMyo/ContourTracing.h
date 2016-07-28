@@ -25,6 +25,7 @@ namespace myatmyo {
 		static void approximatePolygonFromContours(std::string);
 		static void bounding(std::string);
 		static void boundingWithConvexHull(std::string);
+		static void faceDetection();
 	private:
 		static void on_trackbar(int);
 		static void convexHullThreshold(int, void*);
