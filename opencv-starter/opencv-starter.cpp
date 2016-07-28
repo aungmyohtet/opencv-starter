@@ -2,11 +2,11 @@
 //
 
 #include "stdafx.h"
-#include "ImageProcedure.h"
+#include "sumyat\SuMyat.h"
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	zipc::ImageProcedure::displayImage("D:/obama.jpg");
+	sumyat::ImageProcedure::mouseEventTest("images/dory01.jpg");
 	return 0;
 }
