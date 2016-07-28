@@ -12,6 +12,8 @@ namespace hninnayecho {
 		static int readingVideoCamera();
 		static int readingWritingVideo();
 		static void writeImagetoFile();
+		static void linedetection(std::string filename);
+		static void testTutorial();
 	};
 
 }

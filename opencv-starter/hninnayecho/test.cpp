@@ -3,6 +3,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+
 using namespace std;
 using namespace cv;
 
@@ -104,6 +105,7 @@ int hninnayecho::ImageProcessing::readingVideoFile(std::string video){
 		Mat frame;
 
 		bool bSuccess = cap.read(frame); // read a new frame from video
+
 
 		if (!bSuccess) //if not success, break loop
 		{
@@ -219,21 +221,131 @@ int hninnayecho::ImageProcessing::readingWritingVideo(){
 
 void hninnayecho::ImageProcessing::writeImagetoFile(){
 
-	CvCapture* capture = 0;
-	capture = cvCaptureFromCAM(0);
-	cvNamedWindow("video");
-	while (true)
+	Mat frame;
+
+	vector<int> compression_params;
+	//vector that stores the compression parameters of the image
+	compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+	//specify the compression technique
+	compression_params.push_back(100); //specify the compression quality
+
+	int photocount = 0; //initialize image counter
+	int key;
+
+	VideoCapture cap(0); //open camera no.0  0=internal 1=external
+	while ((key = waitKey(30)) != 27) //wait 30 milliseconds and check for esc key
 	{
-		IplImage* frame = 0;
-		frame = cvQueryFrame(capture);
-		if (!frame) break;
-		cvErode(frame, frame, 0, 2);
-		cvShowImage("video", frame);
-		cvSaveImage("E:\\videotesting\\matteo.jpg", frame);
-		int c = cvWaitKey(20);
-		if ((char)c == 27)
-		break;
+		cap >> frame; //save captured image to frame variable
+		imshow("Camera", frame); //show image on window named Camera
+		if (key == 'c')
+		{
+			photocount++;// increment image number for each capture
+			imshow("Captured", frame);
+			imwrite("E:\\videotesting\\MyImage.jpg", frame, compression_params);
+		}
+
 	}
-	cvReleaseCapture(&capture);
-	
 }
+
+void hninnayecho::ImageProcessing::linedetection(std::string image){
+
+	Mat src = imread(image, 0);
+
+	Mat dst, cdst;
+	Canny(src, dst, 50, 200, 3);
+	cvtColor(dst, cdst, CV_GRAY2BGR);
+
+	//vector<Vec2f> lines;
+	// //detect lines
+	//HoughLines(dst, lines, 1, CV_PI/180, 200, 0, 0 );
+
+	// draw lines
+	/*for( size_t i = 0; i < lines.size(); i++ )
+	{
+		float rho = lines[i][0], theta = lines[i][1];
+		Point pt1, pt2;
+		double a = cos(theta), b = sin(theta);
+		double x0 = a*rho, y0 = b*rho;
+		pt1.x = cvRound(x0 + 1000*(-b));
+		pt1.y = cvRound(y0 + 1000*(a));
+		pt2.x = cvRound(x0 - 1000*(-b));
+		pt2.y = cvRound(y0 - 1000*(a));
+		line(cdst, pt1, pt2, Scalar(0, 0, 255), 3, CV_AA);
+		
+	}*/
+	vector<Vec4i> lines;
+	HoughLinesP(dst, lines, 1, CV_PI / 180, 170, 50, 10);
+	for (size_t i = 0; i < lines.size(); i++)
+	{
+		Vec4i l = lines[i];
+		line(cdst, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0, 0, 255), 3, CV_AA);
+	}
+	
+	imshow("source", src);
+	imshow("detected lines", cdst);
+
+	waitKey();
+}
+
+void hninnayecho::ImageProcessing::testTutorial(){
+	//VideoCapture cap("E:\\WAKU WAKU VIDEO\\Waku Waku Japanese - Language Lesson 1- Meeting People.mp4");
+	VideoCapture cap(0);
+	if (!cap.isOpened())  // if not success, exit program
+	{
+		cout << "Cannot open the video file" << endl;
+	}
+
+	namedWindow("MyVideo", CV_WINDOW_AUTOSIZE); //create a window called "MyVideo"
+
+	Mat firstframe;
+	Mat frame; Mat deltaframe;
+
+	while (1)
+	{
+		if (!cap.read(frame)) {
+
+			cout << "Cannot read the frame from video file" << endl;
+			break;
+		}
+
+		Mat frameBinary;
+		cvtColor(frame, frameBinary, CV_BGR2GRAY);
+		GaussianBlur(frameBinary, frameBinary, Size(7, 7), 0, 0);
+
+		if (firstframe.empty()) {
+			firstframe = frameBinary;
+		}
+
+		absdiff(firstframe, frameBinary, deltaframe);
+		threshold(deltaframe, deltaframe, 25, 255, THRESH_BINARY);
+
+		dilate(deltaframe, deltaframe, MORPH_CROSS);//MORPH_RECT//MORPH_ELLIPSE
+
+		vector<vector<Point>> contours;
+		findContours(deltaframe, contours, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+		//drawContours(src, contours, largest_contour_index, Scalar(0, 255, 127), 8);
+
+		for (int i = 0; i < contours.size(); i++) {
+
+			int area = contourArea(contours[i], false);
+			if (area > 500) {
+				Rect bounding_rect = boundingRect(contours[i]);
+				rectangle(frame, bounding_rect, Scalar(0, 255, 0), 2, 8, 0);
+
+				putText(frame, "detect " + to_string(contours.size()), Point(50, 50), CV_FONT_NORMAL, 1, Scalar(0, 0, 255), 1, 16);
+			}
+		}
+
+		imshow("MyVideo", frame); //show the frame in "MyVideo" window
+
+		if (waitKey(30) == 27) {
+
+			cout << "esc key is pressed by user" << endl;
+			break;
+		}
+	}
+	VideoCapture();
+}
+
+
+
