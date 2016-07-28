@@ -7,7 +7,7 @@
 
 namespace myatMoe {
 	void hi();
-	int testTutorial();
+	int testTrackMotion();
 
 	class AffineTranform
 	{
