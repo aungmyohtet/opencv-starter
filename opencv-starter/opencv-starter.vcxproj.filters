@@ -3,64 +3,30 @@
   <ItemGroup>
     <ClCompile Include="hninnayecho\test.cpp" />
     <ClCompile Include="ImageProcedure.cpp" />
-    <ClCompile Include="MyatMyo\MyatMyo.cpp" />
+    <ClCompile Include="MyatMoe\MyatMoeSource.cpp" />
+    <ClCompile Include="MyatMoe\SmoothingProcessor.cpp" />
     <ClCompile Include="opencv-starter.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="sumyat\SuMyat.cpp" />
+    <ClCompile Include="MyatMoe\AffineTransformation.cpp" />
+    <ClCompile Include="MyatMoe\MotionTrack.cpp" />
+    <ClCompile Include="MyatMyo\ContourTracing.cpp" />
+    <ClCompile Include="MyatMyo\EdgeDetection.cpp" />
+    <ClCompile Include="sumyat\SuMyat_MouseEventSliderTrackBar.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageProcedure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AungMyoHtet\Test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MyatMoe\MyatMoe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MyatMoe\SmoothingProcessor.h">
-    <ClInclude Include="sumyat\SuMyat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="opencv-starter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageProcedure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AungMyoHtet\Test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MyatMoe\MyatMoeSource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MyatMoe\SmoothingProcessor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClInclude Include="AungMyoHtet\Test.h" />
     <ClInclude Include="hninnayecho\hninnayecho.h" />
     <ClInclude Include="ImageProcedure.h" />
-    <ClInclude Include="MyatMyo\MyatMyo.h" />
+    <ClInclude Include="MyatMoe\MyatMoe.h" />
+    <ClInclude Include="MyatMoe\SmoothingProcessor.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="sumyat\SuMyat.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="MyatMyo\ContourTracing.h" />
+    <ClInclude Include="MyatMyo\EdgeDetection.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <ClCompile Include="sumyat\SuMyat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
