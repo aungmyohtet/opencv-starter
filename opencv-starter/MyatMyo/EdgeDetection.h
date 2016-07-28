@@ -8,13 +8,12 @@ using namespace cv;
 using namespace std;
 
 namespace myatmyo {
-	Mat src, src_gray;
-	Mat dst;
-
-	int lowThreshold = 0;
-	int const max_lowThreshold = 100;
-	int ratio = 3;
-	int kernel_size = 3;
+	static Mat src, src_gray;
+	static Mat dst;
+	static int lowThreshold = 0;
+	static int const max_lowThreshold = 100;
+	static int ratio = 3;
+	static int kernel_size = 3;
 	class EdgeDetection{
 	public:
 		EdgeDetection();

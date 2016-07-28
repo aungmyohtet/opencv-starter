@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MyatMyo\MyatMyo.h"
+#include "MyatMyo\EdgeDetection.h"
 
 using namespace myatmyo;
 
@@ -87,7 +87,7 @@ void myatmyo::EdgeDetection::cannyEdgeDetection(std::string imagePath) {
 
 	src = imread(imagePath, CV_LOAD_IMAGE_UNCHANGED);
 	namedWindow("Original", CV_WINDOW_AUTOSIZE);
-	imshow("Original", src);
+	imshow("Original", myatmyo::src);
 
 	// Smooting
 	GaussianBlur(src, src, Size(3, 3), 0, 0, BORDER_DEFAULT);
@@ -129,7 +129,7 @@ void myatmyo::EdgeDetection::sobelLaplaceCanny(std::string imagePath) {
 	string canny_name = "Canny";
 	string laplace_name = "Laplace";
 
-	src = imread("E:\\Myat Myo Lwin\\Software\\java\\opencv\\sources\\samples\\data\\lena.jpg");
+	src = imread(imagePath);
 
 
 	GaussianBlur(src, src, Size(3, 3), 0, 0, BORDER_DEFAULT);
